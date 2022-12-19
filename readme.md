@@ -2,12 +2,18 @@
 
 setup in .env file
 
-PORT=
-DB_HOST=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_DB=
-POSTGRES_DBPort=
+PORT=****\*\*\*****
+DB_HOST=****\*\*\*****
+POSTGRES_USER=****\*\*\*****
+POSTGRES_PASSWORD=****\*\*\*****
+POSTGRES_DB=****\*\*\*****
+POSTGRES_DBPort=****\*\*\*****
+
+<!-- test database -->
+
+POSTGRES_DB_TEST=****\*\*\*****
+
+NODE_ENV = 'test' or 'dev'
 
 # JWT SecertKey
 

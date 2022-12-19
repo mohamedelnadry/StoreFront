@@ -18,7 +18,7 @@ body = {
 view all users api = http://localhost:5000/user
 type = GET
 token required in headers
-Authorization : Token 
+Authorization : Token
 ![example Token img ]('imgs/Screenshot 2022-12-17 185615.png')
 
 ## view one user by id
@@ -26,7 +26,7 @@ Authorization : Token
 view one user api = http://localhost:5000/user/{idofuser}
 type = GET
 token required in headers
-Authorization : Token 
+Authorization : Token
 ![example Token img ]('imgs/Screenshot 2022-12-17 185615.png')
 
 ## delete one user
@@ -34,7 +34,7 @@ Authorization : Token
 view one user api = http://localhost:5000/user/delete/{idofuser}
 type = GET
 token required in headers
-Authorization : Token 
+Authorization : Token
 ![example Token img ]('imgs/Screenshot 2022-12-17 185615.png')
 
 # api of Products
@@ -55,7 +55,7 @@ body = {
 view all users api = http://localhost:5000/products
 type = GET
 token required in headers
-Authorization : Token 
+Authorization : Token
 ![example Token img ]('imgs/Screenshot 2022-12-17 185615.png')
 
 ## view one product by id
@@ -63,7 +63,7 @@ Authorization : Token
 view one user api = http://localhost:5000/products/{idofuser}
 type = GET
 token required in headers
-Authorization : Token 
+Authorization : Token
 ![example Token img ]('imgs/Screenshot 2022-12-17 185615.png')
 
 # api of order
@@ -76,16 +76,16 @@ type = POST
 token required in headers
 
 body = {
-   "produc_id": [
-     1,
-     3,
-     4,
-     2,
-     3
- ],
-  "count": "54",
-   "user_id": "1",
-   "on_active": true
+"produc_id": [
+1,
+3,
+4,
+2,
+3
+],
+"count": "54",
+"user_id": "1",
+"on_active": true
 }
 
 # login api

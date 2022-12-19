@@ -34,8 +34,8 @@ class OrderModel {
                     .then((resp) => {
                     const list_product = order.product_id;
                     for (let index = 0; index < list_product.length; index++) {
-                        Connenction.query(`INSERT INTO orderproduct(order_id,product_id) VALUES(${resp.rows[0].id},${list_product[index]}) RETURNING *`).catch(err => {
-                            return { "err": err };
+                        Connenction.query(`INSERT INTO orderproduct(order_id,product_id) VALUES(${resp.rows[0].id},${list_product[index]}) RETURNING *`).catch((err) => {
+                            return { err: err };
                         });
                     }
                     return { massage: "created Order" };

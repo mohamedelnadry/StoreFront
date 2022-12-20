@@ -56,7 +56,7 @@ describe("test user model", () => {
         const user = {
             First_Name: "ibrhamedq",
             Last_Name: "abdualh",
-            Email: "abduledlddesdfddh@mohmg.com",
+            Email: "abdo@mohmg.com",
             Password: "123mohamed",
         };
         const Cuser = yield usermodel.CreateUser(user);

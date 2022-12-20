@@ -1,3 +1,4 @@
+
 {
   "dev": {
     "driver": "pg",
@@ -12,7 +13,11 @@
     },
     "database": {
       "ENV": "POSTGRES_DB"
+    },
+    "port": {
+      "ENV": "POSTGRES_DBPort"
     }
+
   },
   "test": {
     "driver": "pg",
@@ -26,7 +31,10 @@
       "ENV": "DB_HOST"
     },
     "database": {
-      "ENV": "POSTGRES_DB"
+      "ENV": "POSTGRES_DB_TEST"
+    },
+    "port": {
+      "ENV": "POSTGRES_DBPort"
     }
   }
 }

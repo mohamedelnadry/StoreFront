@@ -7,3 +7,4 @@ CREATE TABLE Users(
     email VARCHAR(50) UNIQUE,
     Password varchar(255) NOT NULL
 );
+

@@ -13,7 +13,10 @@ POSTGRES_DBPort=****\*\*\*****
 
 POSTGRES_DB_TEST=****\*\*\*****
 
-NODE_ENV = 'test' or 'dev'
+ENV = 'test' or 'dev'
+# test jasmine
+
+npm run test
 
 # JWT SecertKey
 

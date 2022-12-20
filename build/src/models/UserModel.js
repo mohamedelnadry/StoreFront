@@ -56,10 +56,17 @@ class UserModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const connection = yield connectDB_1.default.connect();
-                const sql = "SELECT * FROM users WHERE id=($1)";
-                const result = yield connection.query(sql, [id]);
+                // const sql = "SELECT * FROM users WHERE id=($1)";
+                const result = yield connection.query(`SELECT * FROM users WHERE id=(${id})`).then(respo => {
+                    if (respo.rows[0] == undefined) {
+                        return { "error": "user not found" };
+                    }
+                    return respo.rows[0];
+                }).catch(err => {
+                    return { "err": err };
+                });
                 connection.release();
-                return result.rows[0];
+                return result;
             }
             catch (err) {
                 throw new Error(`Can't find user ${id}, ${err.message}`);

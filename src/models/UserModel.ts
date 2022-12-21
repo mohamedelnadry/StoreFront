@@ -8,6 +8,10 @@ class UserModel {
   async CreateUser(user: User) {
     try {
       const Connenction = await database.connect();
+      const results = await Connenction.query(`SELECT * FROM Users WHERE Email LIKE '${user.Email}'`)
+      if (results.rowCount == 1) {
+        return { error: "email already exists" };
+      }
       const query = await Connenction.query(
         `INSERT INTO Users (First_Name,Last_Name,Email,Password) VALUES ('${user.First_Name
         }','${user.Last_Name}','${user.Email}','${hashPassword(
@@ -83,7 +87,34 @@ class UserModel {
         "message": "deleted"
       };
     } catch (err: any) {
-      return { "err": err }
+      return { "err": err.detail }
+    }
+  }
+  async updateUser(user: User) {
+    try {
+      const Connenction = await database.connect();
+      const results = await Connenction.query(`SELECT * FROM Users WHERE Email LIKE '${user.Email}'`)
+      if (results.rowCount == 0) {
+        return { error: "email dosn't match" };
+      }
+      const query = await Connenction.query(
+        `UPDATE Users SET first_name='${user.First_Name}',last_name='${user.Last_Name}',password='${hashPassword(user.Password)}' where email='${user.Email}' RETURNING *`
+      )
+        .then((resp) => {
+          return {
+            "message": "Updated",
+            "data": resp.rows[0]
+          };
+        })
+        .catch((err) => {
+          if (err) {
+            return err.message;
+          }
+        });
+      Connenction.release();
+      return query;
+    } catch (error) {
+      return { "error": error };
     }
   }
 

@@ -23,7 +23,18 @@ class UserModel {
                 const Connenction = yield connectDB_1.default.connect();
                 const query = yield Connenction.query(`INSERT INTO Users (First_Name,Last_Name,Email,Password) VALUES ('${user.First_Name}','${user.Last_Name}','${user.Email}','${hashPassword(user.Password)}')RETURNING *`)
                     .then((resp) => {
-                    return "Created";
+                    const jwtSecretKey = config_1.default.jwt_secret_key;
+                    const data = {
+                        id: resp.rows[0].id,
+                        First_Name: resp.rows[0].First_Name,
+                        Last_Name: resp.rows[0].Lirst_Name,
+                        Email: resp.rows[0].Email,
+                    };
+                    const token = jsonwebtoken_1.default.sign(data, jwtSecretKey);
+                    return {
+                        "data": "Created",
+                        "token": token
+                    };
                 })
                     .catch((err) => {
                     if (err) {
@@ -79,30 +90,27 @@ class UserModel {
                 const connection = yield connectDB_1.default.connect();
                 const sql = "DELETE FROM Users WHERE id=($1)";
                 const result = yield connection.query(sql, [id]);
+                console.log(result);
                 connection.release();
-                return result.rows[0];
+                return {
+                    "message": "deleted"
+                };
             }
             catch (err) {
-                throw new Error(`Can't delete user ${id}, ${err.message}`);
+                return { "err": err };
             }
         });
     }
-    UpdateUser(user) {
+    updateUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const Connenction = yield connectDB_1.default.connect();
-                const query = yield Connenction.query(`INSERT INTO Users (First_Name,Last_Name,Email,Password) VALUES ('${user.First_Name}','${user.Last_Name}','${user.Email}','${hashPassword(user.Password)}')RETURNING *`)
+                const query = yield Connenction.query(`UPDATE Users SET first_name=${user.First_Name},last_name=${user.Last_Name},password=${user.Password} where email=${user.Email} RETURNING *`)
                     .then((resp) => {
-                    console.log(resp.rows[0]);
-                    // const jwtSecretKey: Secret = config.jwt_secret_key as string;
-                    // const data = {
-                    //   id: resp.rows[0].id,
-                    //   First_Name: resp.rows[0].First_Name,
-                    //   Last_Name: resp.rows[0].Lirst_Name,
-                    //   Email: resp.rows[0].Email,
-                    // };
-                    // const token = jwt.sign(data, jwtSecretKey);
-                    return resp.rows[0];
+                    return {
+                        "data": "Updated",
+                        "token": resp.rows[0]
+                    };
                 })
                     .catch((err) => {
                     if (err) {
@@ -113,7 +121,7 @@ class UserModel {
                 return query;
             }
             catch (error) {
-                return error;
+                return { "error": error };
             }
         });
     }

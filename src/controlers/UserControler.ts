@@ -54,3 +54,20 @@ export const deleteUser = async (req: Request, res: Response) => {
     throw new Error(`${error}`);
   }
 };
+export const UpdateUser = async (req: Request, res: Response) => {
+  try {
+    await Usermodel.updateUser(req.body)
+      .then((resp) => {
+        res.json({
+          message: resp,
+        });
+      })
+      .catch((err) => {
+        res.send({
+          err: err,
+        });
+      });
+  } catch (error) {
+    res.send(`${error}`);
+  }
+};

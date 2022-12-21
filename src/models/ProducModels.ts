@@ -39,5 +39,37 @@ class ProductModel {
       throw new Error(`Can't find product ${id}, ${err.message}`);
     }
   }
+  async DeleteProduct(id: number) {
+    try {
+      const connection = await database.connect();
+      const sql = "DELETE FROM Product WHERE id=($1)";
+      const result = await connection.query(sql, [id]);
+      connection.release();
+      return {
+        "message": "deleted"
+      };
+    } catch (err: any) {
+      return { "err": err.detail }
+    }
+  }
+  async UpdateProduct(product: Product) {
+    try {
+      const Connenction = await database.connect();
+      const result = await Connenction.query(`SELECT * FROM product WHERE id = '${product.id}'`)
+      if (result.rowCount == 0) {
+        return { error: "product not found" };
+      }
+      const results = await Connenction.query(`UPDATE product SET name='${product.name}',price='${product.price}' WHERE id='${product.id}' RETURNING *;`)
+      
+      Connenction.release();
+      return {
+        message: "Updated",
+        data:results.rows[0]
+      };
+    } catch (error) {
+      return {"error":error}
+    }
+  }
+
 }
 export default ProductModel;

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.user = exports.allusers = exports.createuser = void 0;
+exports.UpdateUser = exports.deleteUser = exports.user = exports.allusers = exports.createuser = void 0;
 const UserModel_1 = __importDefault(require("../models/UserModel"));
 const Usermodel = new UserModel_1.default();
 const createuser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -65,13 +65,29 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const userId = Number(req.params.id);
         const viewUser = yield Usermodel.DeleteUSer(userId);
-        res.status(200).json({
-            message: "deleted",
-            data: viewUser,
-        });
+        res.status(200).send(viewUser);
     }
     catch (error) {
         throw new Error(`${error}`);
     }
 });
 exports.deleteUser = deleteUser;
+const UpdateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield Usermodel.updateUser(req.body)
+            .then((resp) => {
+            res.json({
+                message: resp,
+            });
+        })
+            .catch((err) => {
+            res.send({
+                err: err,
+            });
+        });
+    }
+    catch (error) {
+        res.send(`${error}`);
+    }
+});
+exports.UpdateUser = UpdateUser;

@@ -41,3 +41,29 @@ export const product = async (req: Request, res: Response) => {
     throw new Error("check your id");
   }
 };
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const productID = Number(req.params.id);
+    const viewProduct = await productModel.DeleteProduct(productID);
+    res.status(200).send(viewProduct);
+  } catch (error) {
+    return {"err":error}
+  }
+};
+export const Updateproduct = async (req: Request, res: Response) => {
+  try {
+    await productModel.UpdateProduct(req.body)
+      .then((resp) => {
+        res.send(resp);
+      })
+      .catch((err) => {
+        res.send({
+          err: err,
+        });
+      });
+  } catch (error) {
+    res.send(`${error}`);
+  }
+};
+

@@ -11,4 +11,5 @@ USERrouter.post("/createuser", UserControler_1.createuser);
 USERrouter.get("", auth_middleware_1.authMiddleWare, UserControler_1.allusers);
 USERrouter.get("/:id", auth_middleware_1.authMiddleWare, UserControler_1.user);
 USERrouter.get("/delete/:id", auth_middleware_1.authMiddleWare, UserControler_1.deleteUser);
+USERrouter.post("/updateuser", UserControler_1.UpdateUser);
 exports.default = USERrouter;

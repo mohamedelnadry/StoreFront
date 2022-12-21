@@ -93,7 +93,16 @@ class UserModel {
                 const Connenction = yield connectDB_1.default.connect();
                 const query = yield Connenction.query(`INSERT INTO Users (First_Name,Last_Name,Email,Password) VALUES ('${user.First_Name}','${user.Last_Name}','${user.Email}','${hashPassword(user.Password)}')RETURNING *`)
                     .then((resp) => {
-                    return "Created";
+                    console.log(resp.rows[0]);
+                    // const jwtSecretKey: Secret = config.jwt_secret_key as string;
+                    // const data = {
+                    //   id: resp.rows[0].id,
+                    //   First_Name: resp.rows[0].First_Name,
+                    //   Last_Name: resp.rows[0].Lirst_Name,
+                    //   Email: resp.rows[0].Email,
+                    // };
+                    // const token = jwt.sign(data, jwtSecretKey);
+                    return resp.rows[0];
                 })
                     .catch((err) => {
                     if (err) {

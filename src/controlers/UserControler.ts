@@ -49,10 +49,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId = Number(req.params.id);
     const viewUser = await Usermodel.DeleteUSer(userId);
-    res.status(200).json({
-      message: "deleted",
-      data: viewUser,
-    });
+    res.status(200).send(viewUser);
   } catch (error) {
     throw new Error(`${error}`);
   }

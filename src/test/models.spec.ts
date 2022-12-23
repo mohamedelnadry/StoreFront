@@ -7,8 +7,8 @@ const orders = new OrderModel();
 const productModel = new ProducModels();
 
 const usermodel = new UserModel();
-let userID: Number
-let productID: Number
+let userID: Number;
+let productID: Number;
 
 const user = {
   First_Name: "ibrhamedq",
@@ -22,7 +22,7 @@ describe("test user models defined", () => {
   });
   it("test create user ", async () => {
     const Cuser = await usermodel.CreateUser(user);
-    userID = Cuser.User.id
+    userID = Cuser.User.id;
     if (Cuser.error) {
       expect(Cuser.error).toEqual("email already exists");
     } else {
@@ -33,26 +33,23 @@ describe("test user models defined", () => {
     expect(usermodel.AllUsers).toBeDefined();
   });
   it("test view all users functionality", async () => {
-    const all_users = await usermodel.AllUsers()
+    const all_users = await usermodel.AllUsers();
     expect(all_users.length).toBeGreaterThan(0);
-
   });
 
   it("test view 1 user defined", () => {
     expect(usermodel.GetUserById).toBeDefined();
   });
   it("test view 1 user functionality", async () => {
-    const one_user = await usermodel.GetUserById(userID as number)
+    const one_user = await usermodel.GetUserById(userID as number);
     expect(one_user.id).toBe(userID);
   });
   it("test delete user defined", () => {
     expect(usermodel.DeleteUSer).toBeDefined();
   });
 
-
   it("test Login user defined", async () => {
-
-    const one_user = await usermodel.LoginUser(user)
+    const one_user = await usermodel.LoginUser(user);
     expect(one_user.message).toEqual("login successfully");
   });
 });
@@ -66,24 +63,23 @@ describe("test products models defined", () => {
       price: 1500,
     };
     const product = await productModel.createproduct(products);
-    
-    productID = product.data.id
+
+    productID = product.data.id;
     expect(product.message).toEqual("Created");
   });
   it("test view all product defined", () => {
     expect(productModel.AllProducts).toBeDefined();
   });
-  
-  it("test view all product functionality", async() => {
-    const all_products = await productModel.AllProducts()
-    expect(all_products.length).toBeGreaterThan(0);
 
+  it("test view all product functionality", async () => {
+    const all_products = await productModel.AllProducts();
+    expect(all_products.length).toBeGreaterThan(0);
   });
   it("test view 1 product defined", () => {
     expect(productModel.GetProductById).toBeDefined();
   });
-  it("test view 1 product functionality",async () => {
-    const one_user = await productModel.GetProductById(productID as number)
+  it("test view 1 product functionality", async () => {
+    const one_user = await productModel.GetProductById(productID as number);
     expect(one_user.id).toEqual(productID);
   });
 });
@@ -102,9 +98,9 @@ describe("test orders models defined", () => {
     expect(Orders).toEqual({ massage: "created Order" });
   });
 });
-  // it("test delete user functionality", async () => {
-  //   const one_user = await usermodel.DeleteUSer(userID as number)
-  //   expect(one_user).toEqual({
-  //     "message": "deleted"
-  //   });
-  // });
+// it("test delete user functionality", async () => {
+//   const one_user = await usermodel.DeleteUSer(userID as number)
+//   expect(one_user).toEqual({
+//     "message": "deleted"
+//   });
+// });

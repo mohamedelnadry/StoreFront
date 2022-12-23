@@ -3,8 +3,12 @@ import UserModel from "../models/UserModel";
 const Usermodel = new UserModel();
 
 export const loginuser = async (req: Request, res: Response) => {
-  const result = await Usermodel.LoginUser(req.body).then((resp) => {
-    return resp;
-  });
-  res.send(result);
+  try {
+    const result = await Usermodel.LoginUser(req.body).then((resp) => {
+      return resp;
+    });
+    res.send(result);
+  } catch (error) {
+    return { error: error };
+  }
 };

@@ -5,7 +5,7 @@ import {
   allusers,
   user,
   deleteUser,
-  UpdateUser
+  UpdateUser,
 } from "../controlers/UserControler";
 const USERrouter = express.Router();
 
@@ -13,7 +13,6 @@ USERrouter.post("/createuser", createuser);
 USERrouter.get("", authMiddleWare, allusers);
 USERrouter.get("/:id", authMiddleWare, user);
 USERrouter.get("/delete/:id", authMiddleWare, deleteUser);
-USERrouter.post("/updateuser",authMiddleWare,UpdateUser);
-
+USERrouter.post("/updateuser", authMiddleWare, UpdateUser);
 
 export default USERrouter;

@@ -1,4 +1,3 @@
-
 {
   "dev": {
     "driver": "pg",
@@ -17,7 +16,6 @@
     "port": {
       "ENV": "POSTGRES_DBPort"
     }
-
   },
   "test": {
     "driver": "pg",

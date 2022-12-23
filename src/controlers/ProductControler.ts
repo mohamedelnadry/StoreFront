@@ -45,12 +45,13 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const viewProduct = await productModel.DeleteProduct(productID);
     res.status(200).send(viewProduct);
   } catch (error) {
-    return {"err":error}
+    return { err: error };
   }
 };
 export const Updateproduct = async (req: Request, res: Response) => {
   try {
-    await productModel.UpdateProduct(req.body)
+    await productModel
+      .UpdateProduct(req.body)
       .then((resp) => {
         res.send(resp);
       })
@@ -63,4 +64,3 @@ export const Updateproduct = async (req: Request, res: Response) => {
     res.send(`${error}`);
   }
 };
-

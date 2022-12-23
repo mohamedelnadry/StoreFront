@@ -100,36 +100,43 @@ results = {
 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTY3MTI5Njc2MX0.gqo6oD4NgMdhGTgIEbKQtGkLvDfQU8vR1fhSfBupc2U"
 }
 
-## view tables name 
-    Name     | Type  
+## view tables name
+
+    Name     | Type
+
 -------------+--------
- orderproduct| table
- orders      | table
- product     | table
- users       | table
+orderproduct| table
+orders | table
+product | table
+users | table
 
 ## users table
-   Column   |          Type          |
- id         | integer                | 
- first_name | character varying(50)  |
- last_name  | character varying(50)  |
- email      | character varying(50)  |
- password   | character varying(255) |
 
- ## products table
- Column |          Type           |
- id     | integer                | 
- name   | character varying(100) | 
- price  | integer                |  
+Column | Type |
+id | integer |
+first_name | character varying(50) |
+last_name | character varying(50) |
+email | character varying(50) |
+password | character varying(255) |
 
- ## orders
-  Column   |  Type   | 
- id        | integer |          
- count     | integer |
- user_id   | integer |
- on_active | boolean |
- ## orderproduct
-   Column   |  Type   |
- id         | integer |
- order_id   | integer |
- product_id | integer |
+## products table
+
+Column | Type |
+id | integer |
+name | character varying(100) |
+price | integer |
+
+## orders
+
+Column | Type |
+id | integer |  
+ count | integer |
+user_id | integer |
+on_active | boolean |
+
+## orderproduct
+
+Column | Type |
+id | integer |
+order_id | integer |
+product_id | integer |

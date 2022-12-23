@@ -7,11 +7,10 @@ const orders = new OrderModel();
 export const Orders = async (req: Request, res: Response) => {
   try {
     const data = req.body;
-        
+
     const createorder = await orders.createorder(data);
     res.send(createorder);
   } catch (error) {
-    return { "error": error }
+    return { error: error };
   }
-
 };

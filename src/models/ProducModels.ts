@@ -14,10 +14,10 @@ class ProductModel {
       Connenction.release();
       return {
         message: "Created",
-        data:results.rows[0]
+        data: results.rows[0],
       };
     } catch (error) {
-      return{"error":error}
+      return { error: error };
     }
   }
   async AllProducts() {
@@ -49,30 +49,33 @@ class ProductModel {
       const result = await connection.query(sql, [id]);
       connection.release();
       return {
-        "message": "deleted"
+        message: "deleted",
       };
     } catch (err: any) {
-      return { "err": err.detail }
+      return { err: err.detail };
     }
   }
   async UpdateProduct(product: Product) {
     try {
       const Connenction = await database.connect();
-      const result = await Connenction.query(`SELECT * FROM product WHERE id = '${product.id}'`)
+      const result = await Connenction.query(
+        `SELECT * FROM product WHERE id = '${product.id}'`
+      );
       if (result.rowCount == 0) {
         return { error: "product not found" };
       }
-      const results = await Connenction.query(`UPDATE product SET name='${product.name}',price='${product.price}' WHERE id='${product.id}' RETURNING *;`)
+      const results = await Connenction.query(
+        `UPDATE product SET name='${product.name}',price='${product.price}' WHERE id='${product.id}' RETURNING *;`
+      );
 
       Connenction.release();
       return {
         message: "Updated",
-        data: results.rows[0]
+        data: results.rows[0],
       };
     } catch (error) {
-      return { "error": error }
+      return { error: error };
     }
   }
-
 }
 export default ProductModel;

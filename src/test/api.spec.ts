@@ -4,8 +4,8 @@ import app from "../server";
 const req = supertest(app);
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTY3MTIzMjk4MH0.4TqjPvHtNENdcYX4j_X6E962Tpr0uMAKkZC00LQ2hDM";
 const user = {
-  First_Name: "ibrhamedq",
-  Last_Name: "abdualh",
+  First_Name: "ahmed",
+  Last_Name: "mohamed",
   Email: `abdsssoaaas${Math.floor(Math.random() * 100)}@mohmg.com`, // i give random number to escape error email already exist
   Password: "123mohamed",
 };
@@ -14,11 +14,11 @@ const product = {
   price:120
 }
 const order_product = {
-  "produc_id": [
-    1
+  "product_id": [
+      1
   ],
-  "count": 54,
-  "user_id": 1,
+  "count": "54",
+  "user_id": "1",
   "on_active": true
 }
 const userID = 1
@@ -66,9 +66,9 @@ describe("test products api", () => {
 });
 describe("test create order api", () => {
   it("POST request to test create_orders", async () => {
-
-    const response = await req.post("/order").set("Authorization", token);
-    
-    expect(response.status).toBe(200); // Create order
+    const response = await req.post("/order").set("Authorization", token).send(order_product);
+      console.log(response.body);
+      
+    expect(response.body.massage).toEqual("created Order"); // Create order
   });
 });

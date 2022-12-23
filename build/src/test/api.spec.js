@@ -17,8 +17,8 @@ const server_1 = __importDefault(require("../server"));
 const req = (0, supertest_1.default)(server_1.default);
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTY3MTIzMjk4MH0.4TqjPvHtNENdcYX4j_X6E962Tpr0uMAKkZC00LQ2hDM";
 const user = {
-    First_Name: "ibrhamedq",
-    Last_Name: "abdualh",
+    First_Name: "ahmed",
+    Last_Name: "mohamed",
     Email: `abdsssoaaas${Math.floor(Math.random() * 100)}@mohmg.com`,
     Password: "123mohamed",
 };
@@ -27,11 +27,11 @@ const product = {
     price: 120
 };
 const order_product = {
-    "produc_id": [
+    "product_id": [
         1
     ],
-    "count": 54,
-    "user_id": 1,
+    "count": "54",
+    "user_id": "1",
     "on_active": true
 };
 const userID = 1;
@@ -71,7 +71,8 @@ describe("test products api", () => {
 });
 describe("test create order api", () => {
     it("POST request to test create_orders", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield req.post("/order").set("Authorization", token);
-        expect(response.status).toBe(200); // Create order
+        const response = yield req.post("/order").set("Authorization", token).send(order_product);
+        console.log(response.body);
+        expect(response.body.massage).toEqual("created Order"); // Create order
     }));
 });

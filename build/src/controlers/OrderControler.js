@@ -16,8 +16,14 @@ exports.Orders = void 0;
 const OrderModels_1 = __importDefault(require("../models/OrderModels"));
 const orders = new OrderModels_1.default();
 const Orders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
-    const createorder = yield orders.createorder(data);
-    res.send(createorder);
+    try {
+        const data = req.body;
+        console.log(data);
+        const createorder = yield orders.createorder(data);
+        res.send(createorder);
+    }
+    catch (error) {
+        return { "error": error };
+    }
 });
 exports.Orders = Orders;

@@ -29,6 +29,7 @@ class UserModel {
           const token = jwt.sign(data, jwtSecretKey);
           return {
             "data": "Created",
+            "User": resp.rows[0],
             "token": token
           };
         })
@@ -144,7 +145,10 @@ class UserModel {
             };
             const token = jwt.sign(data, jwtSecretKey);
 
-            return { token: token };
+            return {
+              message: "login successfully",
+              token: token
+            };
           } else {
             return { err: "password dosn't match" };
           }

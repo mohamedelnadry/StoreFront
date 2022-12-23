@@ -13,18 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connectDB_1 = __importDefault(require("../database/connectDB"));
-// const onj = {
-//   "produc_id": [
-//     1,
-//     3,
-//     4,
-//     2,
-//     3
-//   ],
-//   "count": "54",
-//   "user_id": "1",
-//   "on_active": true
-// }
 class OrderModel {
     createorder(order) {
         return __awaiter(this, void 0, void 0, function* () {

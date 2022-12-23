@@ -12,9 +12,12 @@ class ProductModel {
         product.price,
       ]);
       Connenction.release();
-      return "Created";
+      return {
+        message: "Created",
+        data:results.rows[0]
+      };
     } catch (error) {
-      console.log(error);
+      return{"error":error}
     }
   }
   async AllProducts() {
@@ -60,14 +63,14 @@ class ProductModel {
         return { error: "product not found" };
       }
       const results = await Connenction.query(`UPDATE product SET name='${product.name}',price='${product.price}' WHERE id='${product.id}' RETURNING *;`)
-      
+
       Connenction.release();
       return {
         message: "Updated",
-        data:results.rows[0]
+        data: results.rows[0]
       };
     } catch (error) {
-      return {"error":error}
+      return { "error": error }
     }
   }
 

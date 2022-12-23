@@ -21,6 +21,10 @@ class UserModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const Connenction = yield connectDB_1.default.connect();
+                const results = yield Connenction.query(`SELECT * FROM Users WHERE Email LIKE '${user.Email}'`);
+                if (results.rowCount == 1) {
+                    return { error: "email already exists" };
+                }
                 const query = yield Connenction.query(`INSERT INTO Users (First_Name,Last_Name,Email,Password) VALUES ('${user.First_Name}','${user.Last_Name}','${user.Email}','${hashPassword(user.Password)}')RETURNING *`)
                     .then((resp) => {
                     const jwtSecretKey = config_1.default.jwt_secret_key;
@@ -33,6 +37,7 @@ class UserModel {
                     const token = jsonwebtoken_1.default.sign(data, jwtSecretKey);
                     return {
                         "data": "Created",
+                        "User": resp.rows[0],
                         "token": token
                     };
                 })
@@ -97,7 +102,7 @@ class UserModel {
                 };
             }
             catch (err) {
-                return { "err": err };
+                return { "err": err.detail };
             }
         });
     }
@@ -105,11 +110,15 @@ class UserModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const Connenction = yield connectDB_1.default.connect();
-                const query = yield Connenction.query(`UPDATE Users SET first_name=${user.First_Name},last_name=${user.Last_Name},password=${user.Password} where email=${user.Email} RETURNING *`)
+                const results = yield Connenction.query(`SELECT * FROM Users WHERE Email LIKE '${user.Email}'`);
+                if (results.rowCount == 0) {
+                    return { error: "email dosn't match" };
+                }
+                const query = yield Connenction.query(`UPDATE Users SET first_name='${user.First_Name}',last_name='${user.Last_Name}',password='${hashPassword(user.Password)}' where email='${user.Email}' RETURNING *`)
                     .then((resp) => {
                     return {
-                        "data": "Updated",
-                        "token": resp.rows[0]
+                        "message": "Updated",
+                        "data": resp.rows[0]
                     };
                 })
                     .catch((err) => {
@@ -147,7 +156,10 @@ class UserModel {
                             Email: resp.rows[0].Email,
                         };
                         const token = jsonwebtoken_1.default.sign(data, jwtSecretKey);
-                        return { token: token };
+                        return {
+                            message: "login successfully",
+                            token: token
+                        };
                     }
                     else {
                         return { err: "password dosn't match" };

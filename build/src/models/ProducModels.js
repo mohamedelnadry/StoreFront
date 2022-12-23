@@ -24,10 +24,13 @@ class ProductModel {
                     product.price,
                 ]);
                 Connenction.release();
-                return "Created";
+                return {
+                    message: "Created",
+                    data: results.rows[0]
+                };
             }
             catch (error) {
-                console.log(error);
+                return { "error": error };
             }
         });
     }
@@ -56,6 +59,42 @@ class ProductModel {
             }
             catch (err) {
                 throw new Error(`Can't find product ${id}, ${err.message}`);
+            }
+        });
+    }
+    DeleteProduct(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const connection = yield connectDB_1.default.connect();
+                const sql = "DELETE FROM Product WHERE id=($1)";
+                const result = yield connection.query(sql, [id]);
+                connection.release();
+                return {
+                    "message": "deleted"
+                };
+            }
+            catch (err) {
+                return { "err": err.detail };
+            }
+        });
+    }
+    UpdateProduct(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const Connenction = yield connectDB_1.default.connect();
+                const result = yield Connenction.query(`SELECT * FROM product WHERE id = '${product.id}'`);
+                if (result.rowCount == 0) {
+                    return { error: "product not found" };
+                }
+                const results = yield Connenction.query(`UPDATE product SET name='${product.name}',price='${product.price}' WHERE id='${product.id}' RETURNING *;`);
+                Connenction.release();
+                return {
+                    message: "Updated",
+                    data: results.rows[0]
+                };
+            }
+            catch (error) {
+                return { "error": error };
             }
         });
     }

@@ -3,19 +3,6 @@ import database from "../database/connectDB";
 
 import { Order } from "../types/ordertype";
 
-// const onj = {
-//   "produc_id": [
-//     1,
-//     3,
-//     4,
-//     2,
-//     3
-//   ],
-//   "count": "54",
-//   "user_id": "1",
-//   "on_active": true
-// }
-
 class OrderModel {
   async createorder(order: Order) {
     try {

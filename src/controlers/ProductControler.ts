@@ -33,10 +33,7 @@ export const product = async (req: Request, res: Response) => {
   try {
     const productID = Number(req.params.id);
     const viewProduct = await productModel.GetProductById(productID);
-    res.status(200).json({
-      message: "product",
-      data: viewProduct,
-    });
+    res.status(200).send(viewProduct);
   } catch (error) {
     throw new Error("check your id");
   }

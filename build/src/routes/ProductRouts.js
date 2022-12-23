@@ -10,4 +10,6 @@ const PRODUCTrouter = express_1.default.Router();
 PRODUCTrouter.post("/createproduct", auth_middleware_1.authMiddleWare, ProductControler_1.createproduct);
 PRODUCTrouter.get("", auth_middleware_1.authMiddleWare, ProductControler_1.allproducts);
 PRODUCTrouter.get("/:id", auth_middleware_1.authMiddleWare, ProductControler_1.product);
+PRODUCTrouter.get("/delete/:id", auth_middleware_1.authMiddleWare, ProductControler_1.deleteProduct);
+PRODUCTrouter.post("/updateuser", auth_middleware_1.authMiddleWare, ProductControler_1.Updateproduct);
 exports.default = PRODUCTrouter;
